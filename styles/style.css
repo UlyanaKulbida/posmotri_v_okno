@@ -12,6 +12,8 @@ html {
 }
 
 .page {
+  display: flex;
+  align-items: center;
   inline-size: 1200px;
   block-size: 100%;
   margin: auto;
@@ -64,7 +66,7 @@ ol {
   display: flex;
   align-items: center;
   position: relative;
-  padding-bottom: 16px;
+  margin-bottom: 16px;
 }
 
 .result__video {
@@ -78,6 +80,7 @@ ol {
   display: flex;
   justify-content: space-between;
   align-items: end;
+  margin-bottom: 1px;
 }
 
 fieldset {
@@ -102,14 +105,17 @@ fieldset {
   line-height: 25px;
   letter-spacing: 0em;
   text-align: left;
-  color: #ffffffb2;
+  color: #fff;
   background-color: transparent;
   border-color: transparent;
   border-top: 1px solid #fff;
   border-bottom: 1px solid #fff;
+  appearance: none;
 }
 
-
+.search-form__textfield::placeholder {
+  color: #FFFFFFB2;
+}
 
 .search-form__fieldset {
   display: flex;
@@ -150,7 +156,7 @@ span .search-form__label-text:last-child {
   padding-right: 0;
 }
 
-button {
+.button {
   display: flex;
   cursor: pointer;
   font-family: inherit;
@@ -177,7 +183,7 @@ button {
   text-decoration: underline;
 }
 
-.content__video-card-description-container:hover,
+.content__card-link:hover,
 button:hover {
   text-decoration: underline;
 }
@@ -188,18 +194,16 @@ button:hover {
   outline: 1px solid #fff;
 }
 
-
-.search-form__label:has(:focus-visible) {
-  outline: 1px solid;
-  outline-offset: 2px;
-}
-
-.content__card-link_current:focus,
-.content__video-card:focus,
+.content__card-link:focus,
 .search-form__textfield:focus,
 .more-button:focus,
-.search-form__submit-button:focus {
+button:focus {
   outline: none;
+}
+
+.search-form__textfield:focus,
+.search-form__textfield:focus {
+  border-width: inherit;
 }
 
 .search-form__checkbox:checked + .search-form__pseudo-checkbox::before {
@@ -209,20 +213,27 @@ button:hover {
   background-color: #fff;
 }
 
+.search-form__label:has(:focus-visible) {
+  outline: 1px solid;
+  outline-offset: 2px;
+}
+
 a.content__card-link:focus-visible,
-/* .content__card-link_current:focus-visible, */
-.content__video-card:focus-visible,
-.search-form__label:focus-visible,
-.search-form__textfield:focus-visible,
-.more-button:focus-visible,
-.search-form__submit-button:focus-visible {
+.search-form__checkbox:focus-visible,
+.button:focus-visible {
   outline: 1px solid #fff;
   outline-offset: 1px;
 }
 
-a.content__card-link_current:active,
+.search-form__textfield:focus-visible {
+  outline: 0 solid #fff;
+  border-top: 1px solid #fff;
+  border-bottom: 1px solid #fff;
+}
+
+.content__card-link_current,
 .content__video-card:active,
-button:active {
+.button:active {
   background-color: #545050;
   text-decoration: none;
 }
@@ -251,16 +262,20 @@ button:active {
 
 .content__list {
   position: relative;
-  width: 101%;
+  width: 100%;
   height: 298px;
   overflow-y: auto;
   overflow-x: hidden;
   scrollbar-color: #121212 transparent;
   -ms-overflow-style: none;
-  /* scrollbar-width: none; для мозилы  */
 }
 
-ul {
+.content__list::-webkit-scrollbar-track:horizontal {
+  scrollbar-width: none; /* для mozilla */
+  width: 0;
+}
+
+.content__list {
   max-height: 100%;
   padding: 2px 2px;
   background: transparent;
@@ -271,10 +286,11 @@ ul {
   text-decoration: none;
   color: #fff;
 }
+
 .content__list-item {
   width: 100%;
 }
-.content__list-item:not(:nth-last-child(2)) {
+.content__list-item:not(:nth-last-child(1)) {
   padding-bottom: 32px;
 }
 
@@ -291,20 +307,26 @@ ul {
   letter-spacing: 0em;
   text-align: left;
   text-transform: uppercase;
+  white-space: nowrap; /* Запрещаем перенос строк */
+  overflow: hidden; /* Обрезаем все, что не помещается в область */
   text-overflow: ellipsis;
+  padding-top: 5px; /* Поля вокруг текста, чтоб выступающ. эл-ты шрифта влазили */
 }
 
 .content__video-card-thumbnail {
-  height: 103px;
+  max-width: 194px;
+  max-height: 103px;
   object-fit: cover;
   object-position: center;
 }
 
 .content__video-card-description-container {
+  width: 200px;
+  height: 101px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  align-items: flex-start;
+  align-items: flex-start; 
 }
 
 .content__video-card-description {
